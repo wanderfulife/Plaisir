@@ -1,3 +1,6 @@
+
+
+
 export const questions = [
 	{
 		id: "Q1",
@@ -21,7 +24,7 @@ export const questions = [
 	},
 	{
 		id: "Q4",
-		text:"Pour quelle raison principale êtes vous garés ici ?",
+		text: "Pour quelle raison principale êtes vous garés ici ?",
 		options: [
 			{ id: 1, text: "Vous prenez ou avez pris le train", next: "Q5" },
 			{ id: 2, text: "Vous prenez ou avez pris un  bus", next: "Q5" },
@@ -35,7 +38,7 @@ export const questions = [
 	},
 	{
 		id: "Q5",
-		text:"Combien de temps prévoyez-vous de/êtes-vous restés garés ici ?",
+		text: "Combien de temps prévoyez-vous de/êtes-vous restés garés ici ?",
 		options: [
 			{ id: 1, text: "Moins de  20 minutes", next: "Q6" },
 			{ id: 2, text: "Maximum 1h", next: "Q6" },
@@ -47,7 +50,7 @@ export const questions = [
 	},
 	{
 		id: "Q6",
-		text:"Vous stationnez ici, pour le même motif ?",
+		text: "Vous stationnez ici, pour le même motif ?",
 		options: [
 			{ id: 1, text: "Tous les jours y compris le WE", next: "Q7" },
 			{ id: 2, text: "4 à 5 fois par semaine", next: "Q7" },
@@ -56,25 +59,45 @@ export const questions = [
 			{ id: 5, text: "entre 1 fois par semaine et 1 fois par mois", next: "Q7" },
 			{ id: 6, text: "Moins souvent", next: "Q7" },
 		],
-	},	
+	},
 	{
 		id: "Q7",
+		text: "Quelle est votre commune/quartier de résidence",
+		options: [
+			{ id: 1, text: "Plaisir - Grignon", next: "Q8" },
+			{ id: 2, text: "Autre commune", next: "Q9" },
+		],
+	},
+	{
+		id: "Q8",
+		text: "Quelle est votre quartier de résidence",
+		options: [
+			{ id: 1, text: "Aqueduc Sud", next: "end" },
+			{ id: 2, text: "Aqueduc Nord", next: "end" },
+			{ id: 3, text: "Brigitte", next: "end" },
+			{ id: 4, text: "Centre Ville", next: "end" },
+			{ id: 5, text: "Chevalier Les Petits Pres", next: "end" },
+			{ id: 6, text: "Daniele Petit Bontemps", next: "end" },
+			{ id: 7, text: "Gatines La Bataille", next: "end" },
+			{ id: 8, text: "La Boissière", next: "end" },
+			{ id: 9, text: "La Haise Les Gares", next: "end" },
+			{ id: 10, text: "Le Valibout", next: "end" },
+			{ id: 11, text: "Les Ebisoires", next: "end" },
+			{ id: 12, text: "La Mare aux Saules", next: "end" },
+			{ id: 13, text: "champ libre", next: "Q8Precision" },
+		],
+	},
+	{
+		id: "Q8Precision",
+		text: "Precisez le quartier",
+		freeText: true,
+		next: "end",
+	},
+	{
+		id: "Q9",
 		text: "Quelle est votre commune/quartier de résidence",
 		usesCommuneSelector: true,  // Add this flag to indicate it uses CommuneSelector
 		next: "end"  // Explicitly set the next question
 	},
 ];
 
-// Aqueduc Nord
-// Aqueduc Sud
-// Brigitte
-// Centre Ville
-// Chevalier Les Petits Pres
-// Daniele Petit Bontemps
-// Gatines La Bataille
-// La Boissière
-// La Haise Les Gares 
-// Le Valibout
-// Les Ebisoires
-// La Mare aux Saules 
-// champ libre 
