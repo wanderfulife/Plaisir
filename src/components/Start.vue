@@ -72,6 +72,17 @@
           <div v-if="currentQuestion.freeText">
             <div class="input-container">
               <input
+                v-if="currentQuestion.id === 'Q3'"
+                v-model="freeTextAnswer"
+                class="form-control"
+                type="number"
+                :placeholder="
+                  currentQuestion.freeTextPlaceholder ||
+                  'Votre réponse (nombres uniquement)'
+                "
+              />
+              <input
+                v-else
                 v-model="freeTextAnswer"
                 class="form-control"
                 type="text"
@@ -83,7 +94,7 @@
             <button
               @click="handleFreeTextAnswer"
               class="btn-next"
-              :disabled="!freeTextAnswer.trim()"
+              :disabled="!freeTextAnswer"
             >
               {{ isLastQuestion ? "Terminer" : "Suivant" }}
             </button>
@@ -220,12 +231,6 @@ const progress = computed(() => {
   return isLastOrEnding
     ? 100
     : Math.min(Math.round((currentQuestionNumber / totalQuestions) * 100), 99);
-});
-
-const isValidCommuneSelection = computed(() => {
-  return (
-    selectedCommune.value.includes(" - ") || selectedCommune.value.trim() !== ""
-  );
 });
 
 // Methods
