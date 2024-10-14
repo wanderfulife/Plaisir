@@ -64,12 +64,18 @@ export const questions = [
 		id: "Q7",
 		text: "Quelle est votre commune/quartier de résidence",
 		options: [
-			{ id: 1, text: "Plaisir - Grignon", next: "Q8" },
-			{ id: 2, text: "Autre commune", next: "Q9" },
+			{ id: 1, text: "Plaisir - Grignon", next: "Quartier" },
+			{ id: 2, text: "Autre commune", next: "Q8" },
 		],
 	},
 	{
 		id: "Q8",
+		text: "Quelle est votre commune/quartier de résidence",
+		usesCommuneSelector: true,  // Add this flag to indicate it uses CommuneSelector
+		next: "end"  // Explicitly set the next question
+	},
+	{
+		id: "Quartier",
 		text: "Quelle est votre quartier de résidence",
 		options: [
 			{ id: 1, text: "Aqueduc Sud", next: "end" },
@@ -84,20 +90,15 @@ export const questions = [
 			{ id: 10, text: "Le Valibout", next: "end" },
 			{ id: 11, text: "Les Ebisoires", next: "end" },
 			{ id: 12, text: "La Mare aux Saules", next: "end" },
-			{ id: 13, text: "champ libre", next: "Q8Precision" },
+			{ id: 13, text: "champ libre", next: "QuartierPrecision" },
 		],
 	},
 	{
-		id: "Q8Precision",
+		id: "QuartierPrecision",
 		text: "Precisez le quartier",
 		freeText: true,
 		next: "end",
 	},
-	{
-		id: "Q9",
-		text: "Quelle est votre commune/quartier de résidence",
-		usesCommuneSelector: true,  // Add this flag to indicate it uses CommuneSelector
-		next: "end"  // Explicitly set the next question
-	},
+	
 ];
 

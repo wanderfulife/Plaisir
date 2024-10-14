@@ -49,7 +49,7 @@
   </div>
 </template>
   
-  <script setup>
+<script setup>
 import { ref, computed, onMounted } from "vue";
 import * as XLSX from "xlsx";
 import { collection, getDocs } from "firebase/firestore";
@@ -104,6 +104,7 @@ const fetchDashboardData = async () => {
   surveysByEnqueteur.value = enqueteurCounts;
   surveysByType.value = typeCounts;
 };
+
 const downloadData = async () => {
   try {
     const querySnapshot = await getDocs(surveyCollectionRef);
@@ -117,9 +118,6 @@ const downloadData = async () => {
       "HEURE_FIN",
     ];
 
-    let portIdOriginInserted = false;
-    let portIdDestinationInserted = false;
-
     props.questions.forEach((question) => {
       if (question.usesCommuneSelector) {
         headerOrder.push(
@@ -130,33 +128,28 @@ const downloadData = async () => {
       } else {
         headerOrder.push(question.id);
       }
-
-      // Insert PORT_ID_ORIGIN right after Q9bisPL
-      if (question.id === "Q9bisPL" && !portIdOriginInserted) {
-        headerOrder.push("PORT_ID_ORIGIN");
-        portIdOriginInserted = true;
-      }
-
-      // Insert PORT_ID_DESTINATION right after Q11bisPL
-      if (question.id === "Q11bisPL" && !portIdDestinationInserted) {
-        headerOrder.push("PORT_ID_DESTINATION");
-        portIdDestinationInserted = true;
-      }
     });
 
     const data = querySnapshot.docs.map((doc) => {
       const docData = doc.data();
       return headerOrder.reduce((acc, key) => {
-        if (key === "PORT_ID_ORIGIN") {
-          acc[key] = docData["Q9bisPL"] === 1 ? docData[key] || "" : "";
-        } else if (key === "PORT_ID_DESTINATION") {
-          acc[key] = docData["Q11bisPL"] === 1 ? docData[key] || "" : "";
-        } else if (
+        if (
           key.includes("_COMMUNE") ||
           key.includes("_CODE_INSEE") ||
           key.includes("_COMMUNE_LIBRE")
         ) {
-          acc[key] = docData[key] || "";
+          if (docData.Q7 === 1) {
+            // Special case for Q7 = 1 (Plaisir - Grignon)
+            if (key === "Q8_COMMUNE") {
+              acc[key] = "PLAISIR";
+            } else if (key === "Q8_CODE_INSEE") {
+              acc[key] = "78490";
+            } else {
+              acc[key] = "";
+            }
+          } else {
+            acc[key] = docData[key] || "";
+          }
         } else {
           // Include all responses, even if they are 0
           acc[key] = docData[key] !== undefined ? docData[key] : "";
@@ -182,12 +175,7 @@ const downloadData = async () => {
     console.error("Error downloading data:", error);
   }
 };
-
-onMounted(() => {
-  // You can add any initialization logic here if needed
-});
 </script>
-
 <style scoped>
 .btn-signin {
   background-color: #4caf50;
