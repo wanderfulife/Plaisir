@@ -46,6 +46,7 @@ export const questions = [
 			{ id: 4, text: "De 2h à 4h", next: "Q6" },
 			{ id: 5, text: "Toute la journée", next: "Q6" },
 			{ id: 6, text: "Plus d'une journée", next: "Q6" },
+			{ id: 7, text: "Toute la nuit", next: "Q6" },
 		],
 	},
 	{
