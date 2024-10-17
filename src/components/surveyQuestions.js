@@ -35,7 +35,7 @@ export const questions = [
 			{ id: 7, text: "Vous vous rendez dans un commerce/bureau/service/école... du quartier", next: "Q5" },
 			{ id: 8, text: "Vous rendez visite à quelqu'un dans le quartier", next: "Q5" },
 			{ id: 9, text: "Vous venez récupérer quelqu'un a la gare", next: "Q5" },
-
+			{ id: 10, text: "Autre", next: "Q5" },
 		],
 	},
 	{
